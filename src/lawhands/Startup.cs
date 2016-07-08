@@ -28,7 +28,8 @@ namespace lawhands
             if (env.IsDevelopment())
             {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+            // Temporary commented out, to debug Development mode in Azure    
+            //builder.AddUserSecrets();
             }
 
             builder.AddEnvironmentVariables();
