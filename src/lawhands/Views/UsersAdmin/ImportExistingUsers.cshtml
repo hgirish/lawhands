@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "ImportExistingUsers";
+    IList<string> errors = ViewBag.Errors ?? new List<string>();
+}
+
+<h2>ImportExistingUsers</h2>
+
+    @foreach (var error in errors)
+    {
+        <p>@error</p>
+    }
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <button type="submit">Import Users</button>
+}
+<div id="resultsTable"></div>
+<div>Total users: 1826</div>
+@section scripts
+{
+    <script>
+        $(function () {
+            function callAjax() {
+                $('#resultsTable').load("/UsersAdmin/GetNumberOfUsers");
+            }
+            setInterval(callAjax, 15000);
+        });
+
+       
+    </script>
+}

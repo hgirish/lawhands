@@ -59,9 +59,21 @@ namespace lawhands
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Cookies.ApplicationCookie.AccessDeniedPath =
+                    new Microsoft.AspNetCore.Http.PathString("/Account/Forbidden");
+                options.Cookies.ApplicationCookie.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                options.Cookies.ApplicationCookie.AutomaticChallenge = true;
+                options.Cookies.ApplicationCookie.AutomaticAuthenticate = true;
+            })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(PolicyNames.AdministratorsOnly, policy => policy.RequireRole(RoleNames.Administrator));
+            });
 
             services.AddMvc();
 

@@ -311,7 +311,7 @@ namespace lawhands.Controllers
         //
         // GET: /Manage/LinkLoginCallback
         [HttpGet]
-        public async Task<ActionResult> LinkLoginCallback()
+        public async Task<IActionResult> LinkLoginCallback()
         {
             var user = await GetCurrentUserAsync();
             if (user == null)
