@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -32,16 +33,31 @@ namespace lawhands
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+            CurrentEnvironment = env;
         }
 
         public IConfigurationRoot Configuration { get; }
-
+        public IHostingEnvironment CurrentEnvironment { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+            string webRootPath = CurrentEnvironment.ContentRootPath;
+            var appDataDirectory = Path.Combine(webRootPath, "data");
+            if (!Directory.Exists(appDataDirectory))
+            {
+                Directory.CreateDirectory(appDataDirectory);
+            }
+            var sqliteDbFilePath = Path.Combine(appDataDirectory, "identity.sqlite");
+            Console.WriteLine(sqliteDbFilePath);
+            // var connection = Configuration["Production:SqliteConnectionString"];
+            var connection = "Data Source=" + sqliteDbFilePath;
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(connection)
+            );
+
+            // Add framework services.
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
