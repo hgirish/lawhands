@@ -1,13 +1,16 @@
 ﻿@model IEnumerable<ApplicationUser>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "User Management";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New User", "Create")
+</p>
+<p>
+    <a asp-area="" asp-controller="RolesAdmin" asp-action="Index">Role Management</a>
 </p>
 <table class="table">
     <tr>

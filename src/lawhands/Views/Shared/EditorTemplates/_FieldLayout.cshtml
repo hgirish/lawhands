@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+
+<div class="form-group myform">
+    <label asp-for="@Model" class="control-label col-sm-2 mylabel"></label>
+    <div class="col-sm-10">
+        @RenderBody()
+        <span asp-validation-for="@Model" class="text-danger"></span>
+    </div>
+</div>
+
+

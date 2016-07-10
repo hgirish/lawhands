@@ -1,0 +1,35 @@
+﻿@{
+    Layout = null;
+}
+<div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+@{
+    foreach (var prop in ViewData.ModelMetadata.Properties)
+    {
+        if (prop.ShowForEdit)
+        {
+
+            if (prop.TemplateHint == "HiddenInput")
+            {
+                @Html.Hidden(prop.PropertyName)
+            }
+            else
+            {
+                if (prop.IsReadOnly)
+                {
+                    @Html.Label(prop.PropertyName)
+                    @:
+                    @Html.Display(prop.PropertyName)
+                }
+                else
+                {
+                    @Html.Editor(prop.PropertyName)
+
+                }
+            }
+
+        }
+    }
+}
