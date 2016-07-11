@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using lawhands.Data;
 using lawhands.Models;
 using lawhands.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace lawhands
 {
@@ -75,7 +76,10 @@ namespace lawhands
             {
                 options.AddPolicy(PolicyNames.AdministratorsOnly, policy => policy.RequireRole(RoleNames.Administrator));
             });
-
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new RequireHttpsAttribute());
+            });
             services.AddMvc();
 
             // Add application services.

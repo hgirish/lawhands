@@ -27,22 +27,7 @@ namespace lawhands.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationUsers = await _userManager.Users.ToListAsync();
-            if (!applicationUsers.Any())
-            {
-                var user = new ApplicationUser
-                {
-                    UserName = "admin@example.com",
-                    Email = "admin@example.com",
-                    Name = "Admin Example",
-                    DateIn = DateTime.Now
-                };
-              var createResult =  await _userManager.CreateAsync(user, "SuperSecret123!");
-                if (createResult.Succeeded)
-                {
-                   await AddRole(RoleNames.Administrator);
-                    await _userManager.AddToRoleAsync(user, RoleNames.Administrator);
-                }
-            }
+            
             return View(applicationUsers);
         }
 
