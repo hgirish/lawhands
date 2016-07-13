@@ -80,8 +80,9 @@ namespace lawhands
             {
                 options.Filters.Add(new RequireHttpsAttribute());
             });
-            services.AddMvc();
-
+            services.AddMvc().AddViewLocalization();
+            services.AddLocalization();
+           
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -116,6 +117,8 @@ namespace lawhands
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            SeedData.Initialize(app.ApplicationServices);
         }
     }
 }

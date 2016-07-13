@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-lawhands-a202dff3-99f5-4665-ac1a-608f3b4ea861",
 
   "dependencies": {
@@ -44,7 +44,8 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "Microsoft.AspNetCore.Server.Kestrel.Https": "1.0.0"
   },
 
   "tools": {
@@ -58,6 +59,10 @@
       "imports": [
         "portable-net45+win8"
       ]
+    },
+    "Microsoft.DotNet.Watcher.Tools": {
+      "version": "1.0.0-*",
+      "imports": "portable-net451+win8"
     }
   },
 
